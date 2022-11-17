@@ -2,6 +2,7 @@
     "description": "Adds Next.js support to Neos CMS",
     "type": "neos-package",
     "name": "networkteam/neos-next",
+    "license": "MIT",
     "require": {
         "neos/flow": "*",
         "networkteam/neos-contentapi": "*"

@@ -16,3 +16,33 @@ configurable via Fusion. It is not specific to Next.js and can be used for other
 
 ## Configuration
 
+The Next.js URL must be known for Neos CMS for the integration to work correctly.
+The default configuration works for a local Next.js server.
+
+```yaml
+Networkteam:
+  Neos:
+    Next:
+      # Configure Next.js setting by site node name
+      sites:
+        # The default settings are used for all sites without a specific configuration
+        _default:
+          # The base URL for the Next.js frontend
+          nextBaseUrl: http://localhost:3000/
+
+          revalidate:
+            # The URI for revalidation could be a path or an absolute URL
+            uri: '/api/revalidate'
+            token: 'a-secret-token'
+
+        # Add additional site configurations by site node name
+        #
+        # mySiteNode:
+        #   nextBaseUrl: http://my-site.local:3000/
+```
+
+> Note: A long random token should be used for production configuration.
+
+## License
+
+[MIT](./LICENSE.md)
