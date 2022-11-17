@@ -1,0 +1,19 @@
+{
+    "description": "Adds Next.js support to Neos CMS",
+    "type": "neos-package",
+    "name": "networkteam/neos-next",
+    "require": {
+        "neos/flow": "*",
+        "networkteam/neos-contentapi": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Networkteam\\Neos\\Next\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Networkteam.Neos.Next"
+        }
+    }
+}

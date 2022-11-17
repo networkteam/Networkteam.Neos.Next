@@ -1,0 +1,10 @@
+neosNext {
+  # Path to render a node preview out of band for the Neos UI - it will use a configured Next.js server to generate the preview
+  previewNode = Networkteam.Neos.Next:PreviewNode {
+    node = ${node}
+  }
+}
+
+prototype(Networkteam.Neos.Next:PreviewNode) {
+  @class = 'Networkteam\\Neos\\Next\\Fusion\\PreviewNodeImplementation'
+}
