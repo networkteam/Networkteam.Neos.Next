@@ -148,7 +148,8 @@ class RevalidateNotifier
             ]);
         } catch (\Exception $e) {
             $this->systemLogger->error('Error notifying revalidate API', [
-                'exception' => $e
+                'exception' => $e,
+                'url' => $siteConfiguration->revalidateUrl
             ]);
         }
     }

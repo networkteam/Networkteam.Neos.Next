@@ -9,10 +9,9 @@ class NodesHelper
 
     public static function getSiteNodeNameFromContextPath(string $contextPath): string
     {
-        if (!str_starts_with($contextPath, '/sites/')) {
-            throw new Exception(sprintf("Unexpected context path %s, could not get site node name", $contextPath), 1668697631);
+        if (preg_match('#^/sites/([^/@]*)#', $contextPath, $matches)) {
+            return $matches[1];
         }
-        $contextPath = substr($contextPath, strlen('/sites/'));
-        return substr($contextPath, 0, strpos($contextPath, '/'));
+        throw new Exception(sprintf("Unexpected context path %s, could not get site node name", $contextPath), 1668697631);
     }
 }
