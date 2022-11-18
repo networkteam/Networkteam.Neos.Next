@@ -2,18 +2,21 @@
 
 namespace Networkteam\Neos\Next\Fusion;
 
-use GuzzleHttp\Client;
 use Neos\Flow\Annotations as Flow;
+use GuzzleHttp\Client;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Fusion\FusionObjects\AbstractFusionObject;
+use Networkteam\Neos\Next\ContentRepository\NodesHelper;
+use Networkteam\Neos\Next\Domain\Service\SitesConfiguration;
 
 class PreviewNodeImplementation extends AbstractFusionObject
 {
+
     /**
-     * @var string
-     * @Flow\InjectConfiguration(path="nextBaseUri")
+     * @Flow\Inject
+     * @var SitesConfiguration
      */
-    protected $nextBaseUri;
+    protected $sitesConfiguration;
 
     public function evaluate()
     {
@@ -29,8 +32,11 @@ class PreviewNodeImplementation extends AbstractFusionObject
 
     private function fetchPreviewNodeFromNext(string $nodeContextPath)
     {
+        $siteNodeName = NodesHelper::getSiteNodeNameFromContextPath($nodeContextPath);
+        $siteConfiguration = $this->sitesConfiguration->getSiteConfiguration($siteNodeName);
+
         $client = new Client([
-            'base_uri' => $this->nextBaseUri,
+            'base_uri' => $siteConfiguration->nextBaseUrl,
         ]);
 
         $response = $client->get('/neos/previewNode?node[__contextNodePath]=' . urlencode($nodeContextPath), [
