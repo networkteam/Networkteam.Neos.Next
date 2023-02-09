@@ -175,7 +175,7 @@ class RevalidateNotifier
         $result = $routePartHandler->resolveWithParameters($values, $routeParameters);
 
         $this->systemLogger->debug('Building URL for Node with context path ' . $liveContextPath, [
-            'result' => $result?->getResolvedValue()
+            'result' => ($result instanceof ResolveResult) ? $result->getResolvedValue() : $result,
         ]);
 
         if (!($result instanceof ResolveResult)) {
