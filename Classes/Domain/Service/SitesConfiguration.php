@@ -48,6 +48,8 @@ class SitesConfiguration
 
         $revalidateToken = $siteConfiguration['revalidate']['token'];
 
-        return new SiteConfiguration($nextBaseUrl, $revalidateUrl, $revalidateToken);
+        $extraRevalidateSites = $siteConfiguration['extraRevalidateSites'] ?? [];
+
+        return new SiteConfiguration($nextBaseUrl, $revalidateUrl, $revalidateToken, $extraRevalidateSites);
     }
 }

@@ -152,6 +152,30 @@ class RevalidateNotifier
                 'url' => $siteConfiguration->revalidateUrl
             ]);
         }
+
+        foreach ($siteConfiguration->extraRevalidateSites as $siteNodeName) {
+            $siteConfiguration = $this->sitesConfiguration->getSiteConfiguration($siteNodeName);
+
+            $this->systemLogger->debug('Additionally notifying revalidate API of site ' . $siteNodeName, [
+                'url' => $siteConfiguration->revalidateUrl,
+            ]);
+
+            try {
+                $this->client->post($siteConfiguration->revalidateUrl, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $siteConfiguration->revalidateToken
+                    ],
+                    'json' => [
+                        'documents' => []
+                    ]
+                ]);
+            } catch (\Exception $e) {
+                $this->systemLogger->error('Error additionally notifying revalidate API', [
+                    'exception' => $e,
+                    'url' => $siteConfiguration->revalidateUrl
+                ]);
+            }
+        }
     }
 
     private function getRoutePath(string $contextPath): ?string

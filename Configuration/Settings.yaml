@@ -13,6 +13,10 @@ Networkteam:
             uri: '/api/revalidate'
             token: 'a-secret-token'
 
+          # A list of site nodes to additionally revalidate with an empty list of invalidated documents
+          # (this is rarely needed, e.g. only if nodes are referenced cross-site)
+          extraRevalidateSites: []
+
         # Add additional site configurations by site node name
         #
         # mySiteNode:
