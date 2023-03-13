@@ -89,10 +89,9 @@ class RevalidateNotifier
 
         $this->documentNodesToRevalidate[$documentContextPath] = true;
 
-        // Remember the route path for the document node that will be removed after publishing!
-        if ($documentNode->isRemoved()) {
-
-            $this->systemLogger->debug('Document node is removed, so we better find the route path for it - NOW!');
+        // Remember the route path for the document node that will be removed or was hidden after publishing!
+        if ($documentNode->isRemoved() || $documentNode->isHidden()) {
+            $this->systemLogger->debug('Document node is removed or was hidden, so we better find the route path for it - NOW!');
             $this->removedDocumentsRoutePaths[$documentContextPath] = $this->getRoutePath($documentContextPath);
         }
     }
