@@ -10,7 +10,7 @@ use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\ContentRepository\Domain\Model\Workspace;
 use Neos\Flow\Mvc\Routing\Dto\ResolveResult;
 use Neos\Flow\Mvc\Routing\Dto\RouteParameters;
-use Neos\Neos\Routing\FrontendNodeRoutePartHandler;
+use Neos\Flow\ObjectManagement\ObjectManagerInterface;
 use Networkteam\Neos\Next\ContentRepository\NodesHelper;
 use Psr\Log\LoggerInterface;
 
@@ -46,6 +46,12 @@ class RevalidateNotifier
      * @var LoggerInterface
      */
     protected $systemLogger;
+
+    /**
+     * @Flow\Inject
+     * @var ObjectManagerInterface
+     */
+    protected $objectManager;
 
     /**
      * @var string
@@ -179,7 +185,7 @@ class RevalidateNotifier
 
     private function getRoutePath(string $contextPath): ?string
     {
-        $routePartHandler = new FrontendNodeRoutePartHandler();
+        $routePartHandler = $this->objectManager->get(\Neos\Neos\Routing\FrontendNodeRoutePartHandlerInterface::class);
         $routePartHandler->setName('node');
 
         // TODO Set host by domain for site of node
